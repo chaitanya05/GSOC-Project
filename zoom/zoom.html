@@ -2,6 +2,9 @@
 <head>
 <title>Image zooming</title>
 
+<link rel="stylesheet" href="styles.css" type="text/css" />
+<script src="jquery-1.7.1.min.js"></script>
+
 <script>
 <!-- zoom fuction is to be written -->
 </script>
@@ -11,28 +14,28 @@
 <body>
 
 <div>
-<h1>zoom the image</h1>
+<h3>zoom the image</h3>
 </div>
 
 <div>
-	<div>
-		<div>
-		<img id="imageFullScreen" src="image.jpg"/>
+	<div id="pageContent">
+		<div id="imgContainer">
+			<img id="imageFullScreen" src="image.jpg" height="500px" width="980px"/>
 		</div>
-		<div>
-		<span>
-		<img id="zoomIn" class="zoomButton" src="zoom_in_button.png" title="zoom in" alt="zoom in" />
-		<img id="zoomOut" class="zoomButton" src="zoom-out.jpg" title="zoom out" alt="zoom out" />
-		</span>
-		<span>
-		<map name="positionMap">
-		<area id="topPositionMap" shape="rect" coords="20,0,40,20" title="move up" alt="move up"/>
-		<area id="leftPositionMap" shape="rect" coords="0,20,20,40" title="move left" alt="move left"/>
-		<area id="rightPositionMap" shape="rect" coords="40,20,60,40" title="move right" alt="move right"/>
-		<area id="bottomPositionMap" shape="rect" coords="20,40,40,60" title="move bottom" alt="move bottom"/>
-		</map>
-		<img src="position.png"/>
-		</span>
+		<div id="positionButtonDiv">
+			<span>
+				<img id="zoomInButton" class="zoomButton" src="zoom_in_button.png" title="zoom in" alt="zoom in" />
+				<img id="zoomOutButton" class="zoomButton" src="zoom-out.jpg" title="zoom out" alt="zoom out" />
+			</span>
+			<span class="positionButtonSpan">
+				<map name="positionMap" class="positionMapClass">
+				<area id="topPositionMap" shape="rect" coords="20,0,40,20" title="move up" alt="move up"/>
+				<area id="leftPositionMap" shape="rect" coords="0,20,20,40" title="move left" alt="move left"/>
+				<area id="rightPositionMap" shape="rect" coords="40,20,60,40" title="move right" alt="move right"/>
+				<area id="bottomPositionMap" shape="rect" coords="20,40,40,60" title="move bottom" alt="move bottom"/>
+				</map>
+				<img src="position.png" usemap="#positionMap"/>
+			</span>
 		</div>
 	</div>
 </div>
