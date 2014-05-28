@@ -4,9 +4,21 @@
 
 <link rel="stylesheet" href="styles.css" type="text/css" />
 <script src="jquery-1.7.1.min.js"></script>
+<script src="zoom-jquery.js"></script>
 
 <script>
 <!-- zoom fuction is to be written -->
+
+$(document).ready(function()
+{
+	function zoomButtonClickHandler(e){
+	var scaleToAdd = 0.4;
+	if(e.target.id == 'zoomOutButton')
+	scaleToAdd = -scaleToAdd;
+	$('#myImgId').smartZoom('zoom', scaleToAdd);
+	}
+});
+
 </script>
 
 </head>
