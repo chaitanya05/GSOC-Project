@@ -2,6 +2,9 @@
 <head>
 <title>Image zooming</title>
 
+<!--   Imp: Layers are not used here.   -->
+
+
 <link rel="stylesheet" href="styles.css" type="text/css" />
 <script src="jquery-1.7.1.min.js"></script>
 <script src="zoom-jquery.js"></script>
@@ -11,12 +14,17 @@
 
 $(document).ready(function()
 {
+	/* This is for the zooming part.*/
+	$('#topPositionMap,#leftPositionMap,#rightPositionMap,#bottomPositionMap').bind("click", moveButtonClickHandler);
+
 	function zoomButtonClickHandler(e){
-	var scaleToAdd = 0.4;
-	if(e.target.id == 'zoomOutButton')
-	scaleToAdd = -scaleToAdd;
-	$('#myImgId').smartZoom('zoom', scaleToAdd);
+		var scaleToAdd = 0.4;
+		if(e.target.id == 'zoomOutButton')
+		scaleToAdd = -scaleToAdd;
+		$('#myImgId').smartZoom('zoom', scaleToAdd);
 	}
+
+	/* This is for the movable part of the image */
 });
 
 </script>
@@ -32,7 +40,7 @@ $(document).ready(function()
 <div>
 	<div id="pageContent">
 		<div id="imgContainer">
-			<img id="imageFullScreen" src="image.jpg" height="500px" width="980px"/>
+			<img id="myImgId" src="image.jpg" height="500px" width="980px"/>
 		</div>
 		<div id="positionButtonDiv">
 			<span>
