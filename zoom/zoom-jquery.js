@@ -74,5 +74,19 @@
 				s.touch.lastTouchPositionArr.push(new A(o.clientX,o.clientY))
 			}
 		}
+		function p(e){
+			e.preventDefault();
+			var t=n.data("smartZoomData");
+			var r=e.originalEvent.touches;
+			var s=r.length;
+			var o=r[0];
+			if(s==1&&!t.touch.touchPinch&&t.settings.touchMoveEnabled==true){
+				t.touch.touchMove=true;
+				v(o.clientX,o.clientY,0,false)
+			}
+			else if(s==2&&!t.touch.touchMove&&t.settings.pinchEnabled==true){
+				t.touch.touchPinch=true;
+			}
+		}
 	}
 }
