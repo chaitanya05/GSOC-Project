@@ -86,6 +86,47 @@
 			}
 			else if(s==2&&!t.touch.touchMove&&t.settings.pinchEnabled==true){
 				t.touch.touchPinch=true;
+				var u=r[1];
+				var a=t.touch.lastTouchPositionArr[0];
+				var f=t.touch.lastTouchPositionArr[1];
+				var l=new A(o.clientX,o.clientY);
+				var c=new A(u.clientX,u.clientY);
+				var h=l.distance(c);
+				var p=a.distance(f);
+				var d=h-p;
+				if(Math.abs(d)<3)return;
+				var m=new A((l.x+c.x)/2,(l.y+c.y)/2);
+				var g=S();
+				var y=t.originalSize;
+				var b=g.width/y.width;
+				var w=h/p;
+				var E=g.width*w/y.width;
+				i.zoom(E-b,m,0);
+				t.touch.lastTouchPositionArr[0]=l;
+				t.touch.lastTouchPositionArr[1]=c
+			}
+		}
+		function d(t){
+			t.preventDefault();
+			var r=t.originalEvent.touches.length;
+			if(r==0){
+				e(document).unbind("touchmove.smartZoom");
+				e(document).unbind("touchend.smartZoom")
+			}
+			var i=n.data("smartZoomData");
+			if(i.touch.touchPinch)return;
+			if(i.touch.touchMove){
+				if(i.moveLastPosition.distance(i.moveCurrentPosition)>1){
+					var s=i.moveLastPosition.interpolate(i.moveCurrentPosition,-4);
+					v(s.x,s.y,500,true)
+				}
+			}
+			else{
+				if(i.settings.dblTapEnabled==true&&i.touch.lastTouchEndTime!=0&&(new Date).getTime()-i.touch.lastTouchEndTime<300){
+					var o=i.touch.lastTouchPositionArr[0];
+					m(o.x,o.y)
+				}
+				i.touch.lastTouchEndTime=(new Date).getTime()
 			}
 		}
 	}
