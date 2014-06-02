@@ -17,6 +17,9 @@ $(document).ready(function()
 	/* This is for the zooming part.*/
 	$('#topPositionMap,#leftPositionMap,#rightPositionMap,#bottomPositionMap').bind("click", moveButtonClickHandler);
 
+
+	$('#zoomInButton,#zoomOutButton').bind("click", zoomButtonClickHandler);
+
 	function zoomButtonClickHandler(e){
 		var scaleToAdd = 0.4;
 		if(e.target.id == 'zoomOutButton')
