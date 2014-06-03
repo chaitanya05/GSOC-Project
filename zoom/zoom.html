@@ -28,6 +28,28 @@ $(document).ready(function()
 	}
 
 	/* This is for the movable part of the image */
+
+	function moveButtonClickHandler(e){
+		var pixelsToMoveOnX = 0;
+		var pixelsToMoveOnY = 0;
+
+		switch(e.target.id){
+			case "leftPositionMap":
+				pixelsToMoveOnX = 200;
+				break;
+			case "righttPositionMap":
+				pixelsToMoveOnX = -200;
+				break;
+			case "topPositionMap":
+				pixelsToMoveOnY = 200;
+				break;
+			case "bottomPositionMap":
+				pixelsToMoveOnY = -200;
+				break;
+		}
+		$('#myImgId').smartZoom('pan', pixelsToMoveOnX, pixelsToMoveOnY);
+	}
+
 });
 
 </script>

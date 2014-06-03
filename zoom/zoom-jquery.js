@@ -129,5 +129,58 @@
 				i.touch.lastTouchEndTime=(new Date).getTime()
 			}
 		}
+		function v(e,t,i,s){
+			g(r.PAN);
+			var o=n.data("smartZoomData");
+			o.moveLastPosition.x=o.moveCurrentPosition.x;
+			o.moveLastPosition.y=o.moveCurrentPosition.y;
+			var u=n.offset();
+			var a=S();
+			var f=u.left+(e-o.moveCurrentPosition.x);
+			var l=u.top+(t-o.moveCurrentPosition.y);
+			var c=y(f,l,a.width,a.height);
+			x(r.PAN,r.START,false);
+			E(n,c.x,c.y,a.width,a.height,i,s==true?function(){x(r.PAN,r.END,false)}:null);
+			o.moveCurrentPosition.x=e;
+			o.moveCurrentPosition.y=t
+		}
+		function m(e,t){
+			var r=n.data("smartZoomData");
+			var s=r.originalSize;
+			var o=S();
+			var u=o.width/s.width;
+			var a=r.adjustedPosInfos.scale;
+			var f=parseFloat(r.settings.dblClickMaxScale);
+			var l;
+			if(u.toFixed(2)>f.toFixed(2)||Math.abs(f-u)>Math.abs(u-a)){
+				l=f-u
+			}
+			else{
+				l=a-u
+			}
+			i.zoom(l,{x:e,y:t})
+		}
+		function g(e){
+			var t=n.data("smartZoomData");
+			if(t.transitionObject){
+				if(t.transitionObject.cssAnimTimer)clearTimeout(t.transitionObject.cssAnimTimer);
+				var r=t.originalSize;
+				var i=S();
+				var s=new Object;
+				s[t.transitionObject.transition]="all 0s";
+				if(t.transitionObject.css3dSupported){
+					s[t.transitionObject.transform]="translate3d("+i.x+"px, "+i.y+"px, 0) scale3d("+i.width/r.width+","+i.height/r.height+", 1)"
+				}
+				else{
+					s[t.transitionObject.transform]="translateX("+i.x+"px) translateY("+i.y+"px) scale("+i.width/r.width+","+i.height/r.height+")"
+				}
+				n.css(s)
+			}
+			else{
+				n.stop()
+			}
+			u();
+			if(e!=null)x(e,"",true)
+		}
 	}
 }
