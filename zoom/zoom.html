@@ -67,6 +67,10 @@ $(document).ready(function()
 		<div id="imgContainer">
 			<img id="myImgId" src="img/image.jpg" height="500px" width="980px"/>
 		</div>
+		<script type="text/javascript">
+			var imgcoordinates = document.getElementById("myImgId");
+			imgcoordinates.onmousedown = GetCoordinates;
+		</script>
 		<div id="positionButtonDiv">
 			<span>
 				<img id="zoomInButton" class="zoomButton" src="img/zoom_in_button.png" title="zoom in" alt="zoom in" />

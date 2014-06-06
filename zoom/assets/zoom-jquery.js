@@ -232,5 +232,95 @@
 				e.animate({"margin-left":l,"margin-top":c,width:i,height:s},{duration:o,easing:a.settings.easing,complete:function(){if(u!=null)u()}})
 			}
 		}
+		function S(e){
+			var t=n.data("smartZoomData");
+			var r=n.width();
+			var i=n.height();
+			var s=n.offset();
+			var o=parseInt(s.left);
+			var u=parseInt(s.top);
+			var a=t.containerDiv.offset();
+			if(e!=true){
+				o=parseInt(o)-a.left;
+				u=parseInt(u)-a.top
+			}
+			if(t.transitionObject!=null){
+				var f=n.css(t.transitionObject.transform);
+				if(f&&f!=""&&f.search("matrix")!=-1){
+					var l;
+					var c;
+					if(f.search("matrix3d")!=-1){
+						c=f.replace("matrix3d(","").replace(")","").split(",");
+						l=c[0]
+					}
+					else{
+						c=f.replace("matrix(","").replace(")","").split(",");
+						l=c[3];
+						o=parseFloat(c[4]);
+						u=parseFloat(c[5]);
+						if(e){
+							o=parseFloat(o)+a.left;
+							u=parseFloat(u)+a.top
+						}
+					}
+					r=l*r;
+					i=l*i
+				}
+			}
+			return{x:o,y:u,width:r,height:i}
+		}
+		function x(e,t,i){
+			var s=n.data("smartZoomData");
+			var o="";
+			if(i==true&&s.currentActionType!=e){
+				o=s.currentActionType+"_"+r.END;
+				s.currentActionType="";
+				s.currentActionStep=""
+			}
+			else{
+				if(s.currentActionType!=e||s.currentActionStep==r.END){
+					s.currentActionType=e;
+					s.currentActionStep=r.START;
+					o=s.currentActionType+"_"+s.currentActionStep
+				}
+				else if(s.currentActionType==e&&t==r.END){
+					s.currentActionStep=r.END;
+					o=s.currentActionType+"_"+s.currentActionStep;
+					s.currentActionType="";
+					s.currentActionStep=""
+				}
+			}
+			if(o!=""){
+				var u=jQuery.Event(o);
+				u.targetRect=S(true);
+				u.scale=u.targetRect.width/s.originalSize.width;n.trigger(u)
+			}
+		}
+		function T(){
+			if(jQuery.browser.opera)return null;
+			var t=document.body||document.documentElement;
+			var n=t.style;
+			var r=["transition","WebkitTransition","MozTransition","MsTransition","OTransition"];
+			var i=["transition","-webkit-transition","-moz-transition","-ms-transition","-o-transition"];
+			var s=["transform","-webkit-transform","-moz-transform","-ms-transform","-o-transform"];
+			var o=r.length;
+			var u;
+			for(var a=0;a<o;a++){
+				if(n[r[a]]!=null){
+					transformStr=s[a];
+					var f=e('<div style="position:absolute;">Translate3d Test</div>');
+					e("body").append(f);
+					u=new Object;
+					u[s[a]]="translate3d(20px,0,0)";
+					f.css(u);
+					css3dSupported=f.offset().left==20;
+					f.empty().remove();
+					if(css3dSupported){
+						return{transition:i[a],transform:s[a],css3dSupported:css3dSupported}
+					}
+				}
+			}
+			return null
+		}
 	}
 }
