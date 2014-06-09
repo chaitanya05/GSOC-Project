@@ -322,5 +322,37 @@
 			}
 			return null
 		}
+		function N(e,t,n){
+			if(e.search&&e.search("%")!=-1)return(t-n)*(parseInt(e)/100);
+			else return parseInt(e)
+		}
+		function C(e,t,n){
+			if(e.search&&e.search("%")!=-1)return t+n*(parseInt(e)/100);
+			else return t+parseInt(e)
+		}
+		function k(){
+			w()
+		}
+		function L(e){
+			var t=e.offset();
+			if(!t)return null;
+			var n=t.left;
+			var r=t.top;
+			return{x:n,y:r,width:e.outerWidth(),height:e.outerHeight()}
+		}
+		function A(e,t){
+			this.x=e;
+			this.y=t;
+			this.toString=function(){return"(x="+this.x+", y="+this.y+")"};
+			this.interpolate=function(e,t){var n=t*this.x+(1-t)*e.x;var r=t*this.y+(1-t)*e.y;return new A(n,r)};
+			this.distance=function(e){return Math.sqrt(Math.pow(e.y-this.y,2)+Math.pow(e.x-this.x,2))}
+		}
+		var n=this;
+		r.ZOOM="SmartZoom_ZOOM";
+		r.PAN="SmartZoom_PAN";
+		r.START="START";
+		r.END="END";
+		var i={init:function(t){if(n.data("smartZoomData"))return;settings=e.extend({top:"0",left:"0",width:"100%",height:"100%",easing:"smartZoomEasing",maxScale:3,dblClickMaxScale:1.8,mouseEnabled:true,scrollEnabled:true,dblClickEnabled:true,mouseMoveEnabled:true,moveCursorEnabled:true,touchEnabled:true,dblTapEnabled:true,zoomOnSimpleClick:false,pinchEnabled:true,touchMoveEnabled:true,containerBackground:"#FFFFFF",containerClass:""},t);var r="smartZoomContainer"+(new Date).getTime();var i=e('<div id="'+r+'" class="'+settings.containerClass+'"></div>');n.before(i);n.remove();i=e("#"+r);i.css({overflow:"hidden"});if(settings.containerClass=="")i.css({"background-color":settings.containerBackground});i.append(n);var u=new Object;u.lastTouchEndTime=0;u.lastTouchPositionArr=null;u.touchMove=false;u.touchPinch=false;n.data("smartZoomData",{settings:settings,containerDiv:i,originalSize:{width:n.width(),height:n.height()},originalPosition:n.offset(),transitionObject:T(),touch:u,mouseWheelDeltaFactor:.15,currentWheelDelta:0,adjustedPosInfos:null,moveCurrentPosition:null,moveLastPosition:null,mouseMoveForPan:false,currentActionType:"",currentActionStep:""});}
+		}
 	}
 }
