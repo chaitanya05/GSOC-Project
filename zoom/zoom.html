@@ -89,6 +89,41 @@ $(document).ready(function()
 			</span>
 		</div>
 	</div>
+	<script type="text/javascript">
+		var strarr = new Array();
+		var count;
+		count = 0;
+		$('#zoomInButton').click(function() {
+			strarr[count] = 1;
+			count += 1;
+			alert(count);
+		});
+		$( "#zoomOutButton" ).click(function() {
+			strarr[count] = 2;
+			count += 1;
+			alert(strarr[count-1]);
+		});
+		$( "#topPositionMap" ).click(function() {
+			strarr[count] = 3;
+			count += 1;
+			alert(strarr[count-1]);
+		});
+		$( "#leftPositionMap" ).click(function() {
+			strarr[count] = 4;
+			count += 1;
+			alert(strarr[count-1]);
+		});
+		$( "#rightPositionMap" ).click(function() {
+			strarr[count] = 5;
+			count += 1;
+			alert(strarr[count-1]);
+		});
+		$( "#bottomPositionMap" ).click(function() {
+			strarr[count] = 6;
+			count += 1;
+			alert(strarr[count-1]);
+		});
+	</script>
 </div>
 
 </body>
