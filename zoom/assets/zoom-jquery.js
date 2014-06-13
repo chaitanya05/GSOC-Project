@@ -14,7 +14,7 @@
 			if(e.settings.mouseMoveEnabled!=true||e.settings.moveCursorEnabled!=true)return;
 			var t=S();
 			var r=t.width/e.originalSize.width;
-			if(parseInt(r*100)>parseInt(e.adjustedPosInfos.scale*100))n.css({cursor:"move"});
+			if(parseInt(r*100)>parseInt(e.adjustedPosInfos.scale*100))n.css({cursor:"default"});
 			else n.css({cursor:"default"})
 		}
 		function a(e){
