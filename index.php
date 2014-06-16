@@ -61,12 +61,10 @@ function beginBody() {
 	</script>
 	</head>
 	<body>
-	<h1><a href="http://www.petersoots.com/gsoc/index.php">Georeferencing Images</a></h1>
 <?php
 }
 function endBody() {
 ?>
-	<a href="https://github.com/psoots/GSOC">Source Code on Github</a>
 	</body>
 	</html>
 <?php 
