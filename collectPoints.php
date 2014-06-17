@@ -97,6 +97,29 @@ function GetCoordinates(e)
 	}
 	PosX = PosX - ImgPos[0];
 	PosY = PosY - ImgPos[1];
+	var i = 0;
+	var j = 0;
+	for(i = 0; i < count1; i++ ) {
+		if(strarr[i]==1) {
+			j++;
+		}
+		else if(strarr[i]==2) {
+			j--;
+		}
+	}
+	if(j==0) {
+		alert('same as initial');
+	}
+	else {
+		var centerX = 250;
+		var centerY = 490;
+		for(i = 0; i < count; i++ ) {
+			if(strarr[i]!=1) {
+				j = i;
+				break;
+			}
+		}
+	}
 	document.getElementById("x").innerHTML = PosX;
 	document.getElementById("y").innerHTML = PosY;
 }
@@ -151,6 +174,11 @@ var subImage = new Image(
 				</map>
 				<img src="zoom/img/position.png" usemap="#positionMap"/>
 			</span>
+		</div>
+		<div>
+			<img src="<?php echo $sub->url; ?>" height="250px" width="490px"/>
+			<br>
+			<br>
 		</div>
 	</div>
 	<script type="text/javascript">
