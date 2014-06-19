@@ -197,6 +197,12 @@ function GetCoordinates(e)
 			}
 		}
 	}
+	PosX = PosX*(actright-actleft)/980;
+	PosY = PosY*(actbottom-acttop)/500;
+	mainarray[count1]=PosX;
+	count1 += 1;
+	mainarray[count1]=PosY;
+	count1 += 1;
 	document.getElementById("x").innerHTML = PosX;
 	document.getElementById("y").innerHTML = PosY;
 }
@@ -257,10 +263,14 @@ var subImage = new Image(
 			<br>
 			<br>
 		</div>
+		<button onclick="location.href ='displayResults.php';" id="myButton" value="gotWorldFile" class="submit-button" >Generate</button>
 	</div>
 	<script type="text/javascript">
 		var strarr = new Array();
+		var mainarray = new Array();
 		var count;
+		var count1;
+		count1 = 0;
 		count = 0;
 		var actleft = 0;
 		var acttop = 0;
@@ -298,6 +308,5 @@ var subImage = new Image(
 		});
 	</script>
 </div>
-
 </body>
 </html>

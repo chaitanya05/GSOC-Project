@@ -135,7 +135,7 @@ switch($_POST['state']) {
 	
 	// #5 Nice control points! We'll create the MapServer data and show 
 	// you the results.
-	case 'gotWorldFile':	
+	/*  case 'gotWorldFile':	
 		include 'displayResults.php';
 		
 	// Do you want to add another sub image? Go to #3. 
@@ -148,6 +148,6 @@ switch($_POST['state']) {
 	// #7 Now that we have the user's server data we can generate and present 
 	// a zip file of files needed to display the user's data
 	case 'done':			
-		include 'done.php';
+		include 'done.php';*/
 }
 ?>
