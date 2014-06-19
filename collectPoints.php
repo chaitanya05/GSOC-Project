@@ -99,7 +99,7 @@ function GetCoordinates(e)
 	PosY = PosY - ImgPos[1];
 	var i = 0;
 	var j = 0;
-	for(i = 0; i < count1; i++ ) {
+	for(i = 0; i < count; i++ ) {
 		if(strarr[i]==1) {
 			j++;
 		}
@@ -111,12 +111,89 @@ function GetCoordinates(e)
 		alert('same as initial');
 	}
 	else {
-		var centerX = 250;
-		var centerY = 490;
 		for(i = 0; i < count; i++ ) {
-			if(strarr[i]!=1) {
-				j = i;
-				break;
+			if(strarr[i]==1) {
+				if(zin9==0) {
+					actleft += 0.9*49;
+					actright += 980 - 0.9*49;
+					acttop += 0.9*25;
+					actbottom += 250 - 0.9*25;
+					zin9 = 1;
+				}
+				else {
+					var l1=1;
+					for(j=0;j<=zin9;j++) {
+						l1 = l1*0.9;
+					}
+					actleft += l1*49;
+					actright -= l1*49;
+					acttop += l1*25;
+					actbottom -= l1*25;
+					zin9 += 1;
+				}
+			}
+			if(strarr[i]==2) {
+				var l1=1;
+				for(j=0;j<=zin9;j++) {
+					l1 = l1*0.9;
+				}
+				actleft -= l1*49;
+				actright += l1*49;
+				acttop -= l1*25;
+				actbottom += l1*25;
+				zin9 -= 1;
+				if(actleft<=0) {
+					actleft = 0;
+				}
+				if(actright<=0) {
+					actright = 0;
+				}
+				if(acttop<=0) {
+					acttop = 0;
+				}
+				if(actbottom<=0) {
+					actbottom = 0;
+				}
+			}
+			if(strarr[i]==3) {
+				acttop -= 200;
+				actbottom -= 200;
+				if(acttop<=0) {
+					acttop = 0;
+				}
+				if(actbottom<=0) {
+					actbottom = 0;
+				}
+			}
+			if(strarr[i]==4) {
+				actleft -= 200;
+				actright -= 200;
+				if(actleft<=0) {
+					actleft = 0;
+				}
+				if(actright<=0) {
+					actright = 0;
+				}
+			}
+			if(strarr[i]==5) {
+				actleft += 200;
+				actright += 200;
+				if(actleft<=0) {
+					actleft = 0;
+				}
+				if(actright>=980) {
+					actright = 980;
+				}
+			}
+			if(strarr[i]==6) {
+				acttop += 200;
+				actbottom += 200;
+				if(acttop<=0) {
+					acttop = 0;
+				}
+				if(actbottom>=500) {
+					actbottom = 500;
+				}
 			}
 		}
 	}
@@ -185,6 +262,10 @@ var subImage = new Image(
 		var strarr = new Array();
 		var count;
 		count = 0;
+		var actleft = 0;
+		var acttop = 0;
+		var actbot = 0;
+		var actright = 0;
 		$('#zoomInButton').click(function() {
 			strarr[count] = 1;
 			count += 1;
