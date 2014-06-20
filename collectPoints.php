@@ -99,6 +99,7 @@ function GetCoordinates(e)
 	PosY = PosY - ImgPos[1];
 	var i = 0;
 	var j = 0;
+	var zin9 = 0;
 	for(i = 0; i < count; i++ ) {
 		if(strarr[i]==1) {
 			j++;
@@ -117,7 +118,7 @@ function GetCoordinates(e)
 					actleft += 0.9*49;
 					actright += 980 - 0.9*49;
 					acttop += 0.9*25;
-					actbottom += 250 - 0.9*25;
+					actbottom += 500 - 0.9*25;
 					zin9 = 1;
 				}
 				else {
@@ -184,7 +185,7 @@ function GetCoordinates(e)
 				if(actright>=980) {
 					actright = 980;
 				}
-			}
+			}	
 			if(strarr[i]==6) {
 				acttop += 200;
 				actbottom += 200;
@@ -197,8 +198,15 @@ function GetCoordinates(e)
 			}
 		}
 	}
-	PosX = PosX*(actright-actleft)/980;
-	PosY = PosY*(actbottom-acttop)/500;
+	if(zin9>0) {
+	PosX = actleft + PosX*(actright-actleft)/980;
+	PosY = acttop + PosY*(actbottom-acttop)/500;
+	zin9 = 0;
+	actleft = 0;
+	actright = 0;
+	actbottom = 0;
+	acttop = 0;
+	}
 	mainarray[count1]=PosX;
 	count1 += 1;
 	mainarray[count1]=PosY;
@@ -266,6 +274,8 @@ var subImage = new Image(
 		<button onclick="location.href ='displayResults.php';" id="myButton" value="gotWorldFile" class="submit-button" >Generate</button>
 	</div>
 	<script type="text/javascript">
+		var height = <?php echo $base->height; ?>;
+		var width  = <?php echo $base->width; ?>;
 		var strarr = new Array();
 		var mainarray = new Array();
 		var count;
@@ -274,37 +284,64 @@ var subImage = new Image(
 		count = 0;
 		var actleft = 0;
 		var acttop = 0;
-		var actbot = 0;
+		var actbottom = 0;
 		var actright = 0;
 		$('#zoomInButton').click(function() {
-			strarr[count] = 1;
-			count += 1;
+                        if(strarr[count-1]==2) {
+                                count = count-1;
+                        }
+                        else if(count>=1) {
+				strarr[count] = 1;
+				count += 1;
+			}
 			alert(count);
 		});
 		$( "#zoomOutButton" ).click(function() {
-			strarr[count] = 2;
-			count += 1;
+                        if(strarr[count-1]==1) {
+                                count = count-1;
+                        }
+                        else if(count>=1) {
+				strarr[count] = 2;
+				count += 1;
+			}
 			alert(strarr[count-1]);
 		});
 		$( "#topPositionMap" ).click(function() {
-			strarr[count] = 3;
-			count += 1;
+                        if(strarr[count-1]==6) {
+                                count = count-1;
+                        }
+                        else if(count>=1) {
+				strarr[count] = 3;
+				count += 1;
+			}
 			alert(strarr[count-1]);
 		});
 		$( "#leftPositionMap" ).click(function() {
-			strarr[count] = 4;
-			count += 1;
-			alert(strarr[count-1]);
+                        if(strarr[count-1]==5) {
+                                count = count-1;
+                        }
+                        else if(count>=1) {
+				strarr[count] = 4;
+				count += 1;
+			}
 		});
 		$( "#rightPositionMap" ).click(function() {
-			strarr[count] = 5;
-			count += 1;
-			alert(strarr[count-1]);
+                        if(strarr[count-1]==4) {
+                                count = count-1;
+                        }
+                        else if(count>=1) {
+				strarr[count] = 5;
+				count += 1;
+			}
 		});
 		$( "#bottomPositionMap" ).click(function() {
-			strarr[count] = 6;
-			count += 1;
-			alert(strarr[count-1]);
+                        if(strarr[count-1]==3) {
+                                count = count-1;
+                        }
+                        else if(count>=1) {
+				strarr[count] = 6;
+				count += 1;
+			}
 		});
 	</script>
 </div>
