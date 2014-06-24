@@ -8,6 +8,11 @@
 <script src="zoom/assets/jquery-1.7.1.min.js"></script>
 <script src="zoom/assets/zoom-jquery.js"></script>
 
+
+
+
+
+
 <script>
 <!-- zoom fuction is to be written -->
 
@@ -22,7 +27,7 @@ $(document).ready(function()
 	$('#zoomInButton,#zoomOutButton').bind("click", zoomButtonClickHandler);
 
 	function zoomButtonClickHandler(e){
-		var scaleToAdd = 0.1;
+		var scaleToAdd = 100;
 		if(e.target.id == 'zoomOutButton')
 		scaleToAdd = -scaleToAdd;
 		$('#myImgId').smartZoom('zoom', scaleToAdd);
@@ -38,7 +43,7 @@ $(document).ready(function()
 			case "leftPositionMap":
 				pixelsToMoveOnX = 200;
 				break;
-			case "righttPositionMap":
+			case "rightPositionMap":
 				pixelsToMoveOnX = -200;
 				break;
 			case "topPositionMap":
@@ -115,98 +120,76 @@ function GetCoordinates(e)
 		for(i = 0; i < count; i++ ) {
 			if(strarr[i]==1) {
 				if(zin9==0) {
-					actleft += 0.9*49;
-					actright += 980 - 0.9*49;
-					acttop += 0.9*25;
-					actbottom += 500 - 0.9*25;
+					actleft = 326.666;
+					actright = 653.333;
+					acttop = 166.333;
+					actbottom = 333.666;
 					zin9 = 1;
-				}
-				else {
-					var l1=1;
-					for(j=0;j<=zin9;j++) {
-						l1 = l1*0.9;
-					}
-					actleft += l1*49;
-					actright -= l1*49;
-					acttop += l1*25;
-					actbottom -= l1*25;
-					zin9 += 1;
 				}
 			}
 			if(strarr[i]==2) {
-				var l1=1;
-				for(j=0;j<=zin9;j++) {
-					l1 = l1*0.9;
-				}
-				actleft -= l1*49;
-				actright += l1*49;
-				acttop -= l1*25;
-				actbottom += l1*25;
-				zin9 -= 1;
-				if(actleft<=0) {
+				if(zin9==1) {
 					actleft = 0;
-				}
-				if(actright<=0) {
-					actright = 0;
-				}
-				if(acttop<=0) {
+					actright = 980;
 					acttop = 0;
-				}
-				if(actbottom<=0) {
-					actbottom = 0;
+					actbottom = 500;
+					zin9 = 0;
 				}
 			}
 			if(strarr[i]==3) {
-				acttop -= 200;
-				actbottom -= 200;
-				if(acttop<=0) {
-					acttop = 0;
+				if(acttop-67>=0) {
+					acttop -= 67;
+					actbottom -= 67;
 				}
-				if(actbottom<=0) {
-					actbottom = 0;
+				else if(acttop>=0) {
+					actbottom = actbottom - acttop;
+					acttop = 0;
 				}
 			}
 			if(strarr[i]==4) {
-				actleft -= 200;
-				actright -= 200;
-				if(actleft<=0) {
-					actleft = 0;
+				if(actleft-68>=0) {
+					actleft -= 68;
+					actright -= 68;
 				}
-				if(actright<=0) {
-					actright = 0;
+				else if(actleft>=0) {
+					actright = actright - actleft;
+					actleft = 0;
 				}
 			}
 			if(strarr[i]==5) {
-				actleft += 200;
-				actright += 200;
-				if(actleft<=0) {
-					actleft = 0;
+				if(actright+68<=980) {
+					actleft += 68;
+					actright += 68;
 				}
-				if(actright>=980) {
+				else if(actright<=980) {
+					actleft = actleft + 980 - actright;
 					actright = 980;
 				}
-			}	
+			}
 			if(strarr[i]==6) {
-				acttop += 200;
-				actbottom += 200;
-				if(acttop<=0) {
-					acttop = 0;
+				if(actbottom+67<=500) {
+					acttop += 67;
+					actbottom += 67;
 				}
-				if(actbottom>=500) {
+				else if(actbottom<=500) {
+					acttop = acttop + 500 - actbottom;
 					actbottom = 500;
 				}
 			}
 		}
 	}
 	if(zin9>0) {
-	PosX = actleft + PosX*(actright-actleft)/980;
-	PosY = acttop + PosY*(actbottom-acttop)/500;
-	zin9 = 0;
-	actleft = 0;
-	actright = 0;
-	actbottom = 0;
-	acttop = 0;
+		alert(actleft);
+		PosX = actleft + PosX*(actright-actleft)/980;
+		PosY = acttop + PosY*(actbottom-acttop)/500;
+		zin9 = 0;
+		actleft = 0;
+		actright = 0;
+		acttop = 0;
+		actbottom = 0;
 	}
+	alert(actleft);
+	alert(actright);
 	mainarray[count1]=PosX;
 	count1 += 1;
 	mainarray[count1]=PosY;
@@ -215,6 +198,9 @@ function GetCoordinates(e)
 	document.getElementById("y").innerHTML = PosY;
 }
 </script>
+
+
+
 
 
 <script>
@@ -242,6 +228,8 @@ var subImage = new Image(
 <h3>zoom the image</h3>
 </div>
 
+
+
 <div>
 	<div id="pageContent">
 		<div id="imgContainer">
@@ -251,6 +239,9 @@ var subImage = new Image(
 			var myImg = document.getElementById("myImgId");
 			myImg.onmousedown = GetCoordinates;
 		</script>
+		<p>X1:<span id="x"></span></p>
+		<p>Y1:<span id="y"></span></p>
+
 		<div id="positionButtonDiv">
 			<span>
 				<img id="zoomInButton" class="zoomButton" src="zoom/img/zoom_in_button.png" title="zoom in" alt="zoom in" />
@@ -271,11 +262,39 @@ var subImage = new Image(
 			<br>
 			<br>
 		</div>
-		<button onclick="location.href ='displayResults.php';" id="myButton" value="gotWorldFile" class="submit-button" >Generate</button>
+	<form id="myForm" action="displayResults.php" method="post"> 
+		<input type="hidden" id="str" name="str" value="" /> 
+		<input type="submit" id="btn" name="submit" value="Submit" />
+	</form>
+
+	<span id="result"></span>
+
+	<script>
+	$(document).ready(function(){
+		/*if(count1>=1) {
+			alert('attack');
+		}
+		if(count1>=1) {*/
+		$("#btn").click( function(e) {
+			//e.preventDefault();
+			$.post( $("#myForm").attr("action"),
+			$('#str').val(JSON.stringify(mainarray)),  
+			//$("#myForm :input").serializeArray(), 
+			function(info){ 
+			$("#result").html(info);
+			//alert(info);
+			; 
+			});
+		});
+
+		//}
+	});
+	</script>
+		<!-- <button onclick="location.href ='displayResults.php';" id="myButton" value="gotWorldFile" class="submit-button" >Generate</button> -->
 	</div>
 	<script type="text/javascript">
 		var height = <?php echo $base->height; ?>;
-		var width  = <?php echo $base->width; ?>;
+		var width = <?php echo $base->width; ?>;
 		var strarr = new Array();
 		var mainarray = new Array();
 		var count;
@@ -286,15 +305,20 @@ var subImage = new Image(
 		var acttop = 0;
 		var actbottom = 0;
 		var actright = 0;
+		var zin = 0;
+		var zout = 0;
+		var mleft = 0;
+		var mright = 0;
+		var mleft = 0;
+		var mtop = 0;
 		$('#zoomInButton').click(function() {
                         if(strarr[count-1]==2) {
                                 count = count-1;
                         }
-                        else if(count>=1) {
+                        else {
 				strarr[count] = 1;
 				count += 1;
 			}
-			alert(count);
 		});
 		$( "#zoomOutButton" ).click(function() {
                         if(strarr[count-1]==1) {
@@ -304,7 +328,6 @@ var subImage = new Image(
 				strarr[count] = 2;
 				count += 1;
 			}
-			alert(strarr[count-1]);
 		});
 		$( "#topPositionMap" ).click(function() {
                         if(strarr[count-1]==6) {
@@ -314,7 +337,6 @@ var subImage = new Image(
 				strarr[count] = 3;
 				count += 1;
 			}
-			alert(strarr[count-1]);
 		});
 		$( "#leftPositionMap" ).click(function() {
                         if(strarr[count-1]==5) {
@@ -344,6 +366,7 @@ var subImage = new Image(
 			}
 		});
 	</script>
+
 </div>
 </body>
 </html>
