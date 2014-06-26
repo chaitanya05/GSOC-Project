@@ -190,6 +190,16 @@ function GetCoordinates(e)
 	}
 	alert(actleft);
 	alert(actright);
+	if(count1<=2) {
+		if(count1==0) {
+			finarray[0]=PosX;
+			finarray[1]=PosY;
+		}
+		else if(count1==2) {
+			finarray[2]=PosX;
+			finarray[3]=PosY;
+		}
+	}
 	mainarray[count1]=PosX;
 	count1 += 1;
 	mainarray[count1]=PosY;
@@ -199,6 +209,63 @@ function GetCoordinates(e)
 }
 </script>
 
+
+
+<script>
+function FindPosition(oElement)
+{
+        if(typeof( oElement.offsetParent ) != "undefined")
+        {
+                for(var posX = 0, posY = 0; oElement; oElement = oElement.offsetParent)
+                {
+                        posX += oElement.offsetLeft;
+                        posY += oElement.offsetTop;
+                }
+                return [ posX, posY ];
+        }
+        else
+        {
+                return [ oElement.x, oElement.y ];
+        }
+}
+
+
+function Coordinates(e)
+{
+        var PosX = 0;
+        var PosY = 0;
+        var ImgPos;
+        ImgPos = FindPosition(subImg);
+        if (!e) var e = window.event;
+        if (e.pageX || e.pageY)
+        {
+                PosX = e.pageX;
+                PosY = e.pageY;
+        }
+        else if (e.clientX || e.clientY)
+        {
+                PosX = e.clientX + document.body.scrollLeft
+                        + document.documentElement.scrollLeft;
+                PosY = e.clientY + document.body.scrollTop
+                        + document.documentElement.scrollTop;
+        }
+        PosX = PosX - ImgPos[0];
+        PosY = PosY - ImgPos[1];
+	if(subcount1<2) {
+		if(subcount1==0) {
+			finarray[4]=PosX;
+			finarray[5]=PosY;
+		}
+		else if(subcount1==1) {
+			finarray[6]=PosX;
+			finarray[7]=PosY;
+		}
+	}
+	subcount1++;
+        document.getElementById("x1").innerHTML = PosX;
+        document.getElementById("y1").innerHTML = PosY;
+}
+</script>
 
 
 
@@ -258,7 +325,14 @@ var subImage = new Image(
 			</span>
 		</div>
 		<div>
-			<img src="<?php echo $sub->url; ?>" height="250px" width="490px"/>
+			<img id="subId1" src="<?php echo $sub->url; ?>" height="250px" width="490px"/>
+	                <script type="text/javascript">
+	                        var subImg = document.getElementById("subId1");
+	                        subImg.onmousedown = Coordinates;
+	                </script>
+	                <p>X2:<span id="x1"></span></p>
+        	        <p>Y2:<span id="y1"></span></p>
+
 			<br>
 			<br>
 		</div>
@@ -278,7 +352,7 @@ var subImage = new Image(
 		$("#btn").click( function(e) {
 			//e.preventDefault();
 			$.post( $("#myForm").attr("action"),
-			$('#str').val(JSON.stringify(mainarray)),  
+			$('#str').val(JSON.stringify(finarray)),  
 			//$("#myForm :input").serializeArray(), 
 			function(info){ 
 			$("#result").html(info);
@@ -297,10 +371,14 @@ var subImage = new Image(
 		var width = <?php echo $base->width; ?>;
 		var strarr = new Array();
 		var mainarray = new Array();
+		var subarray = new Array();
+		var finarray = new Array();
 		var count;
 		var count1;
+		var subcount1;
 		count1 = 0;
 		count = 0;
+		subcount1 = 0;
 		var actleft = 0;
 		var acttop = 0;
 		var actbottom = 0;
