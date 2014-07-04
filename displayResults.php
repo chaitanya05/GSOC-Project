@@ -13,25 +13,9 @@ js2php_proc();
 ?>
 
 
-<script>
-var baseImage = new Image( 
-	<?php
-		$base = $_SESSION["baseImage"];
-		echo "\"$base->url\", $base->width, $base->height";
-	?>
-);
-var subImage = new Image(
-	<?php
-		$sub = $_SESSION['subImages'][$_SESSION['subCount']-1];
-		echo "\"$sub->url\", $sub->width, $sub->height";
-	?>
-);
-</script>
-
-
 <?php
 
-$command1 = shell_exec(raster2pgsql -s 4326 -I -C -M?> <?php echo $base->url; ?> <?php -F -t 500x980 public.schema > elev-sample1.sql | psql -U postgres -d demo -f elev-sample1.sql);
+$command1 = shell_exec('raster2pgsql -s 4326 -I -C -M data/base.png -F -t 500x980 public.schema > elev-sample1.sql | psql -U postgres -d demo -f elev-sample1.sql');
 if(!$command1) {
 	echo "Upload error!";
 }
