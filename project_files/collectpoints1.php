@@ -34,6 +34,7 @@ $(document).ready(function()
 	}
 
 	/* This is for the movable part of the image */
+
 	function moveButtonClickHandler(e){
 		var pixelsToMoveOnX = 0;
 		var pixelsToMoveOnY = 0;
@@ -113,7 +114,7 @@ function GetCoordinates(e)
 		}
 	}
 	if(j==0) {
-		alert('same as initial');
+		//alert('same as initial');
 	}
 	else {
 		for(i = 0; i < count; i++ ) {
@@ -178,7 +179,7 @@ function GetCoordinates(e)
 		}
 	}
 	if(zin9>0) {
-		alert(actleft);
+		//alert(actleft);
 		PosX = actleft + PosX*(actright-actleft)/980;
 		PosY = acttop + PosY*(actbottom-acttop)/500;
 		zin9 = 0;
@@ -187,8 +188,8 @@ function GetCoordinates(e)
 		acttop = 0;
 		actbottom = 0;
 	}
-	alert(actleft);
-	alert(actright);
+	//alert(actleft);
+	//alert(actright);
 	if(count1<=2) {
 		if(count1==0) {
 			finarray[0]=PosX;
@@ -258,6 +259,10 @@ function Coordinates(e)
 		else if(subcount1==1) {
 			finarray[6]=PosX;
 			finarray[7]=PosY;
+			finarray[8]=newArr[0];
+			finarray[9]=newArr[1];
+			var str = JSON.stringify(finarray);
+			sessionStorage.finarray = str;
 		}
 	}
 	subcount1++;
@@ -268,21 +273,6 @@ function Coordinates(e)
 
 
 
-
-<script>
-var baseImage = new Image( 
-	<?php
-		$base = $_SESSION["baseImage"];
-		echo "\"$base->url\", $base->width, $base->height";
-	?>
-);
-var subImage = new Image(
-	<?php
-		$sub = $_SESSION['subImages'][$_SESSION['subCount']-1];
-		echo "\"$sub->url\", $sub->width, $sub->height";
-	?>
-);
-</script>
 
 
 
@@ -299,7 +289,16 @@ var subImage = new Image(
 <div>
 	<div id="pageContent">
 		<div id="imgContainer">
-			<img id="myImgId" src="<?php echo $base->url; ?>" height="500px" width="980px"/>
+			<?php
+				$arr = array();
+				$arr[0] = "";
+				$arr[1] = "";
+			?>
+			<img id="myImgId" height="500px" width="980px"/>
+			<script>
+				var newArr = JSON.parse(sessionStorage.myarr);
+				document.getElementById("myImgId").src = newArr[0];
+			</script>
 		</div>
 		<script type="text/javascript">
 			var myImg = document.getElementById("myImgId");
@@ -324,8 +323,9 @@ var subImage = new Image(
 			</span>
 		</div>
 		<div>
-			<img id="subId1" src="<?php echo $sub->url; ?>" height="250px" width="490px"/>
+			<img id="subId1" height="500px" width="980px"/>
 	                <script type="text/javascript">
+				document.getElementById("subId1").src = newArr[1];
 	                        var subImg = document.getElementById("subId1");
 	                        subImg.onmousedown = Coordinates;
 	                </script>
@@ -335,7 +335,7 @@ var subImage = new Image(
 			<br>
 			<br>
 		</div>
-	<form id="myForm" action="displayResults.php" method="post"> 
+	<form id="myForm" action="displayResults.php" method="post" > 
 		<input type="hidden" id="str" name="str" value="" /> 
 		<input type="submit" id="btn" name="submit" value="Submit" />
 	</form>
@@ -351,23 +351,21 @@ var subImage = new Image(
 		$("#btn").click( function(e) {
 			//e.preventDefault();
 			$.post( $("#myForm").attr("action"),
-			$('#str').val(JSON.stringify(finarray)),  
+			$('#str').val(JSON.stringify(finarray)),
 			//$("#myForm :input").serializeArray(), 
-			function(info){ 
+			function(info){
 			$("#result").html(info);
 			//alert(info);
-			; 
 			});
 		});
 
 		//}
 	});
 	</script>
-		<!-- <button onclick="location.href ='displayResults.php';" id="myButton" value="gotWorldFile" class="submit-button" >Generate</button> -->
 	</div>
 	<script type="text/javascript">
-		var height = <?php echo $base->height; ?>;
-		var width = <?php echo $base->width; ?>;
+		//var height = <?php echo $base->height; ?>;
+		//var width = <?php echo $base->width; ?>;
 		var strarr = new Array();
 		var mainarray = new Array();
 		var subarray = new Array();

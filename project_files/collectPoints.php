@@ -19,22 +19,37 @@
 $(document).ready(function()
 {
 	/* This is for the zooming part.*/
+	var myvalue1 = "false";
+	if(myvalue1=="false") {
 	$('#myImgId').smartZoom({'containerClass':'zoomableContainer'});
 
 	$('#topPositionMap,#leftPositionMap,#rightPositionMap,#bottomPositionMap').bind("click", moveButtonClickHandler);
 
-
+	
 	$('#zoomInButton,#zoomOutButton').bind("click", zoomButtonClickHandler);
+	}
 
+	//document.getElementById("topPositionMap").style.pointerEvents = 'none';
+	/*$("topPositionMap").click(function() {
+		$(this).bind();
+	});*/
+	
 	function zoomButtonClickHandler(e){
-		var scaleToAdd = 100;
-		if(e.target.id == 'zoomOutButton')
-		scaleToAdd = -scaleToAdd;
-		$('#myImgId').smartZoom('zoom', scaleToAdd);
+		if(myvalue1 == "false") {
+			myvalue1 = "true";
+			var scaleToAdd = 100;
+			if(e.target.id == 'zoomOutButton')
+			scaleToAdd = -scaleToAdd;
+			$('#myImgId').smartZoom('zoom', scaleToAdd);
+			setTimeout(function(){myvalue1="false"},3000);
+		}
 	}
 
 	/* This is for the movable part of the image */
+
 	function moveButtonClickHandler(e){
+		if(myvalue1 == "false") {
+		myvalue1 = "true";
 		var pixelsToMoveOnX = 0;
 		var pixelsToMoveOnY = 0;
 
@@ -53,6 +68,8 @@ $(document).ready(function()
 				break;
 		}
 		$('#myImgId').smartZoom('pan', pixelsToMoveOnX, pixelsToMoveOnY);
+		setTimeout(function(){myvalue1="false"},3000);
+		}
 	}
 
 });
@@ -113,7 +130,7 @@ function GetCoordinates(e)
 		}
 	}
 	if(j==0) {
-		alert('same as initial');
+		//alert('same as initial');
 	}
 	else {
 		for(i = 0; i < count; i++ ) {
@@ -146,9 +163,9 @@ function GetCoordinates(e)
 				}
 			}
 			if(strarr[i]==4) {
-				if(actleft-68>=0) {
-					actleft -= 68;
-					actright -= 68;
+				if(actleft-67.3333>=0) {
+					actleft -= 67.3333;
+					actright -= 67.333;
 				}
 				else if(actleft>=0) {
 					actright = actright - actleft;
@@ -156,9 +173,9 @@ function GetCoordinates(e)
 				}
 			}
 			if(strarr[i]==5) {
-				if(actright+68<=980) {
-					actleft += 68;
-					actright += 68;
+				if(actright+67.3333<=980) {
+					actleft += 67.3333;
+					actright += 67.3333;
 				}
 				else if(actright<=980) {
 					actleft = actleft + 980 - actright;
@@ -166,9 +183,9 @@ function GetCoordinates(e)
 				}
 			}
 			if(strarr[i]==6) {
-				if(actbottom+67<=500) {
-					acttop += 67;
-					actbottom += 67;
+				if(actbottom+67.3333<=500) {
+					acttop += 67.3333;
+					actbottom += 67.3333;
 				}
 				else if(actbottom<=500) {
 					acttop = acttop + 500 - actbottom;
@@ -178,7 +195,7 @@ function GetCoordinates(e)
 		}
 	}
 	if(zin9>0) {
-		alert(actleft);
+		//alert(actleft);
 		PosX = actleft + PosX*(actright-actleft)/980;
 		PosY = acttop + PosY*(actbottom-acttop)/500;
 		zin9 = 0;
@@ -187,8 +204,8 @@ function GetCoordinates(e)
 		acttop = 0;
 		actbottom = 0;
 	}
-	alert(actleft);
-	alert(actright);
+	//alert(actleft);
+	//alert(actright);
 	if(count1<=2) {
 		if(count1==0) {
 			finarray[0]=PosX;
@@ -258,6 +275,8 @@ function Coordinates(e)
 		else if(subcount1==1) {
 			finarray[6]=PosX;
 			finarray[7]=PosY;
+			var str = JSON.stringify(finarray);
+			sessionStorage.finarray = str;
 		}
 	}
 	subcount1++;
@@ -301,6 +320,9 @@ var subImage = new Image(
 		<div id="imgContainer">
 			<img id="myImgId" src="<?php echo $base->url; ?>" height="500px" width="980px"/>
 		</div>
+		<?php
+			//echo $sub->url;
+		?>
 		<script type="text/javascript">
 			var myImg = document.getElementById("myImgId");
 			myImg.onmousedown = GetCoordinates;
@@ -324,7 +346,7 @@ var subImage = new Image(
 			</span>
 		</div>
 		<div>
-			<img id="subId1" src="<?php echo $sub->url; ?>" height="250px" width="490px"/>
+			<img id="subId1" src="<?php echo $sub->url; ?>" height="500px" width="980px"/>
 	                <script type="text/javascript">
 	                        var subImg = document.getElementById("subId1");
 	                        subImg.onmousedown = Coordinates;
@@ -335,7 +357,7 @@ var subImage = new Image(
 			<br>
 			<br>
 		</div>
-	<form id="myForm" action="displayResults.php" method="post"> 
+	<form id="myForm" action="displayResults.php" method="post" > 
 		<input type="hidden" id="str" name="str" value="" /> 
 		<input type="submit" id="btn" name="submit" value="Submit" />
 	</form>
@@ -375,6 +397,8 @@ var subImage = new Image(
 		var count;
 		var count1;
 		var subcount1;
+		finarray[8]="<?php echo $base->url; ?>";
+		finarray[9]="<?php echo $sub->url; ?>";
 		count1 = 0;
 		count = 0;
 		subcount1 = 0;
