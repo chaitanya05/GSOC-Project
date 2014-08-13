@@ -1,0 +1,100 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<title>Overlay two images</title>
+
+		<link rel="stylesheet" href="OpenLayers-2.13.1/theme/default/style.css" type="text/css">
+
+		<link rel="stylesheet" href="OpenLayers-2.13.1/examples/style.css" type="text/css">
+
+		<style type="text/css">
+
+		p.caption {
+
+width: 512px;
+
+}
+
+</style>
+
+<script src="OpenLayers-2.13.1/lib/Firebug/firebug.js"></script>
+
+<script src="OpenLayers-2.13.1/lib/OpenLayers.js"></script>
+
+<script type="text/javascript">
+
+
+var map;
+
+function init(){
+
+map = new OpenLayers.Map('map');
+
+
+
+var graphic = new OpenLayers.Layer.Image(
+
+		'Overlaid Image-I',
+		'data/sub1.png',
+		new OpenLayers.Bounds(-160,-89.11403600000001,160,88.403964),
+		new OpenLayers.Size(300,150),
+		{numZoomLevels: 3, isBaseLayer: false, opacity: 0.5}
+		);
+
+graphic.events.on({
+loadstart: function() {
+OpenLayers.Console.log("loadstart");
+},
+loadend: function() {
+OpenLayers.Console.log("loadend");
+}
+});
+
+
+var graphic1 = new OpenLayers.Layer.Image(
+		'Base Image',
+		'data/base.png',
+		new OpenLayers.Bounds(-160, -88.759, 160, 88.759),
+		new OpenLayers.Size(980,500),
+		{numZoomLevels: 3, isBaseLayer: true}
+		);
+
+graphic1.events.on({
+loadstart: function() {
+OpenLayers.Console.log("loadstart2");
+},
+loadend: function() {
+OpenLayers.Console.log("loadend2");
+}
+});
+
+
+
+map.addLayers([graphic1, graphic]);
+map.addControl(new OpenLayers.Control.LayerSwitcher());
+map.zoomToMaxExtent();
+}
+</script>
+</head>
+<body onload="init()">
+<h1 id="title">Result on Overlay of images</h1>
+
+<div id="tags">
+image, imagelayer
+</div>
+
+<p id="shortdesc">
+</p>
+
+<div id="map" class="smallmap"></div>
+
+<div id="docs">
+<p class="caption">
+	</p>
+
+	</div>
+	</body>
+	</html>
+	
