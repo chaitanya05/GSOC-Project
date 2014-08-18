@@ -1,6 +1,6 @@
 <?php
 /*
- * Copyright © 2011 by Peter Soots
+ * Copyright © 2014 by Sai Chaitanya
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -129,10 +129,10 @@ switch($_POST['state']) {
 		include 'getSub.php';
 	
 	// #4 Thank you for submitting a sub image. We're going to save it.
-	// Please add control points to the images. 
 	case 'gotSub':			
 		include 'saveSub.php';
 	
+	// Please add control points to the images. 
 	case 'collect':
 		include 'collectPoints.php';
 	

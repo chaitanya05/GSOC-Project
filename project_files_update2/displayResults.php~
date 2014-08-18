@@ -35,6 +35,8 @@ width: 512px;
 <script type="text/javascript">
 
 var newArr = JSON.parse(sessionStorage.finarray);
+//alert(newArr);
+//alert(newArr[0]);
 var map;
 function init(){
 	map = new OpenLayers.Map('map');
@@ -119,6 +121,8 @@ function init(){
 	boundingbox[4] = newArr[8];
 	boundingbox[5] = newArr[9];
 	var boundingbox1 = boundingbox;
+	//alert(boundingbox);
+	//alert(boundingbox1);
 	var graphic = new OpenLayers.Layer.Image(
 			'Overlaid Image-I',
 			newArr[9],

@@ -18,7 +18,6 @@
 
 $(document).ready(function()
 {
-	/* This is for the zooming part.*/
 	$('#myImgId').smartZoom({'containerClass':'zoomableContainer'});
 
 	$('#topPositionMap,#leftPositionMap,#rightPositionMap,#bottomPositionMap').bind("click", moveButtonClickHandler);
@@ -40,6 +39,7 @@ $(document).ready(function()
 	d6.onclick = function(){ tempAlert("Wait for a few moments!!!",2000); };
 
 
+	/* This is for the zooming part.*/
 	function zoomButtonClickHandler(e){
 		var scaleToAdd = 100;
 		if(e.target.id == 'zoomOutButton')
@@ -128,7 +128,6 @@ function GetCoordinates(e)
 		}
 	}
 	if(j==0) {
-		//alert('same as initial');
 	}
 	else {
 		for(i = 0; i < count; i++ ) {
@@ -193,7 +192,6 @@ function GetCoordinates(e)
 		}
 	}
 	if(zin9>0) {
-		//alert(actleft);
 		PosX = actleft + PosX*(actright-actleft)/980;
 		PosY = acttop + PosY*(actbottom-acttop)/500;
 		zin9 = 0;
@@ -202,8 +200,6 @@ function GetCoordinates(e)
 		acttop = 0;
 		actbottom = 0;
 	}
-	//alert(actleft);
-	//alert(actright);
 	if(count1<=2) {
 		if(count1==0) {
 			finarray[0]=PosX;
