@@ -77,6 +77,7 @@ $(document).ready(function()
 
 
 <script>
+//To find the current coordinates
 function FindPosition(oElement)
 {
 	if(typeof( oElement.offsetParent ) != "undefined")
@@ -324,6 +325,7 @@ var subImage = new Image(
 				},duration);
 			document.body.appendChild(el);
 		}
+			// This is when the user clicks n the image id then the script fucntion is called
 			var myImg = document.getElementById("myImgId");
 			myImg.onmousedown = GetCoordinates;
 		</script>

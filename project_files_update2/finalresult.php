@@ -17,7 +17,7 @@ fwrite($myfile1, "" .$cosmo[4]. "\n");
 fwrite($myfile1, "" .$cosmo[5]. "\n");
 fclose($myfile1);
 
-
+//writing to the file temp.html the variables, constraints and constructors.
 $myfile = fopen("temp.html", "w");
 
 
