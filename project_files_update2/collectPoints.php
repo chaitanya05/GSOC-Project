@@ -151,9 +151,9 @@ function GetCoordinates(e)
 				}
 			}
 			if(strarr[i]==3) {
-				if(acttop-67>=0) {
-					acttop -= 67;
-					actbottom -= 67;
+				if(acttop-65.00>=0) {
+					acttop -= 65.00;
+					actbottom -= 65.00;
 				}
 				else if(acttop>=0) {
 					actbottom = actbottom - acttop;
@@ -181,9 +181,9 @@ function GetCoordinates(e)
 				}
 			}
 			if(strarr[i]==6) {
-				if(actbottom+67.3333<=500) {
-					acttop += 67.3333;
-					actbottom += 67.3333;
+				if(actbottom+65.00<=500) {
+					acttop += 65.00;
+					actbottom += 65.00;
 				}
 				else if(actbottom<=500) {
 					acttop = acttop + 500 - actbottom;
