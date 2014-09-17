@@ -32,4 +32,4 @@ archive.tar
 	This is the file where the user will download files readme, temp.html and the images, and the user can display it on their website.
 
 archiveall.tar
-	This is the file where the user will download files readem, dimg.html and the images, and the user can display it on their website.
+	This is the file where the user will download files readme, dimg.html and the images, and the user can display it on their website.
